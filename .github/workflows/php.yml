@@ -1,20 +1,28 @@
-on: 
+on:
   push:
     branches:
-      – main
+      - main
+
 name: Deploy website on push
+
 jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-    –name: Get latest code
-    –uses: actions/checkout@v3
-    
-    – name: Sync files
-    uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-    with:
-        server: ${{ secrets.ftp_hostname }}
-        username: ${{ secrets.ftp_username }}
-        password: ${{ secrets.ftp_password }}
-        server-dir: /
+      - name: Debug Message
+        run: echo "Workflow is running..."
+
+      - name: Get latest code
+        uses: actions/checkout@v3
+
+      - name: List Files
+        run: ls -la
+
+      - name: Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.ftp_hostname }}
+          username: ${{ secrets.ftp_username }}
+          password: ${{ secrets.ftp_password }}
+          server-dir: /
